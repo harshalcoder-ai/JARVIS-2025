@@ -79,30 +79,25 @@ Face embeddings
 
 
 🏗️ System Architecture
-                    ┌──────────────────────────┐
-                    │   Microphone Input        │
-                    └─────────────┬────────────┘
-                                  │
-                        Speech-to-Text (STT)
-                                  │
-                    ┌─────────────▼────────────┐
-                    │ Natural Language Engine   │
-                    │  (OpenAI/Ollama/GPT)      │
-                    └─────────────┬────────────┘
-                                  │
-                         Intent Classification
-                                  │
-          ┌───────────────────────┼──────────────────────────┐
-          │                       │                          │
-   System Automation        Knowledge Query              Face/Voice Tasks
-(PyAutoGUI / OS / APIs)     (LLM/Database)              (OpenCV / Dlib)
-          │                       │                          │
-          └───────────────┬───────┴────────────┬────────────┘
-                          │                    │
-                        Response Generator (TTS)
-                          │
-                          ▼
-                    Speaker Output
+                    
+Microphone
+    │
+    ▼
+Speech-to-Text (STT)
+    │
+    ▼
+AI Engine (GPT / Ollama)
+    │
+    ├── System Commands
+    ├── Web Automation
+    ├── Knowledge Queries
+    ├── Face Recognition
+    │
+    ▼
+Response Generator (TTS)
+    │
+    ▼
+Speaker Output
 
 
 
@@ -291,3 +286,4 @@ GitHub: https://github.com/harshalcoder-ai
 ⭐ Support
 
 If this project helps you, please ⭐ the repo!
+

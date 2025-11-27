@@ -1,0 +1,25 @@
+# Virtual environment
+envJarvis/
+
+# Database files
+jarvis.db
+
+# Contacts file
+contacts.csv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code settings
+.vscode/
+
+# Backend specific ignored files
+backend/__pycache__/
+backend/cookie.json
+
+# Windows shortcuts
+*.lnk
+
+# Temporary files
+tempCodeRunnerFile.py

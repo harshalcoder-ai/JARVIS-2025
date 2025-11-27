@@ -1,289 +1,142 @@
-🤖 JARVIS-2025 — AI Personal Assistant 
+:
 
-A Fully Intelligent, Offline + Online Hybrid AI Assistant with Voice, Vision, Automation, Reasoning, Memory & App Control
+🤖 JARVIS-2025 — AI Desktop Assistant
 
-🧭 Table of Contents
+Advanced voice-controlled AI assistant with system automation, face authentication, and local LLM support.
 
-Project Overview
-Key Capabilities
-System Architecture
-Technology Stack
-Installation (Very Detailed)
-Configuration & Environment Setup
-Project Folder Structure
-How It Works (Internal Pipeline Explained)
-Usage Examples
-API Documentation (Internal Functions)
-Local LLM Support via Ollama
-Database Schema
-Screenshots & Demo Videos
-Troubleshooting Guide
-Roadmap
-Author
+🚀 Features
 
+🔐 Face Authentication (OpenCV + LBPH)
 
-🧠 Project Overview
+🎙️ Voice Recognition (SpeechRecognition)
 
-JARVIS-2025 is an advanced AI personal assistant that runs locally on your system and can also connect to cloud LLMs.
-This assistant can:
-Listen, speak, and reason
-Automate tasks
-Control your apps
-Understand your voice
-Identify your face
-Remember previous conversations
-Execute commands like a real JARVIS
+🧠 Offline AI Chat using Ollama
 
-This project is developed as a final-year engineering project (AI & Data Science), but designed to work like a production-level personal AI system.
+⚙️ System Command Automation
 
+🌐 Open Websites & Applications
 
-🚀 Key Capabilities
-🎙️ 1. Voice Processing
-Real-time speech-to-text
-Natural AI voice responses
-Wake-word activation (optional)
+🗂️ SQLite Database Support
 
-🧑‍🦰 2. Face Authentication
-Uses OpenCV + Dlib
-Locks/unlocks the assistant
-Multi-user support (optional)
+💬 Frontend Dashboard with Animations
 
-🤖 3. AI Reasoning
-Supports:
-GPT-4o
-GPT-4o-mini
-Llama 3 (via Ollama)
-Mistral
-Phi 3
+🔈 Text-to-Speech Responses
 
-💻 4. System Automation
-Open apps
-Close apps
-Control system volume
-Play music
-Capture screenshots
-Create notes
+📁 Modular Backend Architecture
 
-🌐 5. Web Automation
-Google search
-YouTube search
-WhatsApp automation
-Email automation
+📸 Image-based detection modules (optional)
 
-🧾 6. Database Support
-Stores:
-Chat history
-Settings
-User profiles
-Face embeddings
-
-
-🏗️ System Architecture
-                    
-Microphone
-    │
-    ▼
-Speech-to-Text (STT)
-    │
-    ▼
-AI Engine (GPT / Ollama)
-    │
-    ├── System Commands
-    ├── Web Automation
-    ├── Knowledge Queries
-    ├── Face Recognition
-    │
-    ▼
-Response Generator (TTS)
-    │
-    ▼
-Speaker Output
-
-
-
-🛠️ Technology Stack
+🧰 Tech Stack
 Languages
+
 Python
-JavaScript (optional for frontend)
 
-AI Libraries
-OpenAI API
-Ollama (local LLM)
-Langchain (if using)
-SpeechRecognition
-Pyttsx3 / Edge-TTS
+JavaScript
 
-Vision
+HTML/CSS
+
+Libraries
+
 OpenCV
-Dlib
-Face Recognition library
 
-Backend
-Python
-FastAPI / Flask (optional)
+Pyttsx3
 
-Database
-SQLite3 (jarvis.db)
+SpeechRecognition
 
-Automation
+SQLite3
+
+Requests
+
 PyAutoGUI
-Selenium
-OS module
 
-📦 Installation (Very Detailed)
-🔹 Step 1 — Clone the Repository
+Subprocess
+
+Ollama API
+
+Tools
+
+VS Code
+
+Git & GitHub
+
+Python Virtual Environment
+
+📁 Project Structure
+Jarvis-2025/
+│── backend/
+│   ├── auth/            → Face authentication
+│   ├── command.py       → System commands
+│   ├── feature.py       → Main features
+│   ├── db.py            → Database operations
+│   ├── helper.py        → Utility functions
+│   ├── apis.py          → External APIs
+│   └── open_command.py  → Website & app shortcuts
+│
+│── frontend/
+│   ├── index.html
+│   ├── main.js
+│   ├── style.css
+│   └── assets/
+│
+│── ollama_backend.py
+│── run.py
+│── main.py
+│── README.md
+│── .gitignore
+
+🛠️ Installation
+1️⃣ Clone the repository
 git clone https://github.com/harshalcoder-ai/JARVIS-2025.git
 cd JARVIS-2025
 
-🔹 Step 2 — Create Virtual Environment
+2️⃣ Create virtual environment
 python -m venv envJarvis
-
-
-Activate:
 envJarvis\Scripts\activate
 
-🔹 Step 3 — Install Dependencies
+3️⃣ Install dependencies
 pip install -r requirements.txt
 
+4️⃣ Run the assistant
+python run.py
 
-If missing, install manually:
-pip install openai speechrecognition pyttsx3 opencv-python dlib pyautogui
+🎙️ How to Use
 
-🔹 Step 4 — Setup Ollama (Local LLM)
-Download Ollama → https://ollama.ai
+Start JARVIS
 
-Then:
-ollama pull llama3
+Face authentication will verify user
 
-🔹 Step 5 — Run the Assistant
-python main.py
+Say your command (examples):
 
-⚙️ Configuration & Environment Setup
-In config.json:
+"Jarvis open YouTube"
 
-{
-  "openai_api_key": "YOUR_KEY",
-  "use_ollama": true,
-  "model": "gpt-4o-mini",
-  "wake_word": "jarvis"
-}
+"Play music"
 
+"Tell me the time"
 
-📁 Project Folder Structure
-Jarvis-2025/
-│
-├── backend/
-│   ├── stt/            # Speech to text
-│   ├── tts/            # Text to speech
-│   ├── ai_engine/      # OpenAI/Ollama logic
-│   ├── automation/     # OS & web automation modules
-│   ├── vision/         # Face recognition, camera
-│   ├── database/       # SQLite database wrapper
-│   └── utils/          # Helper functions
-│
-├── frontend/           # Optional UI (React/Tkinter)
-│
-├── envJarvis/          # Virtual env (not pushed to GitHub)
-│
-├── main.py             # Entry point
-├── run.py              # Starts frontend + backend
-├── README.md
-├── .gitignore
-└── jarvis.db
+"Search on Google"
 
-🧠 How It Works (Internal Pipeline Explained)
-1. Wake Word Detection
-Continuously listens for “Jarvis”
-Low CPU consumption
+"Explain Python classes" (LLM)
 
-2. Speech Recognition
-Converts your voice to text
-Removes background noise
+JARVIS speaks and executes tasks in real-time
 
-3. Intent Understanding
-Uses LLM to classify:
-System command
-Automation task
-Question-answering
-Face-related task
-Web automation
+🔮 Future Improvements
 
-5. Execution Layer
-Uses:
-pyautogui → Click, type, scroll
-selenium → automate web
-os → open/close apps
+GPT-4o Realtime API integration
 
-5. Response Generation
-The assistant speaks the answer using TTS.
+Hand gesture control
 
-💬 Usage Examples
-**Speak:**
-- "Jarvis, open YouTube"
-- "Send a message to Rahul"
-- "Explain binary search"
-- "Give me today's weather"
-- "Play music"
+Offline STT + TTS
 
+Android mobile app extension
 
-📘 API Documentation (Internal Functions)
-Example:
-backend/automation/system.py
-def open_application(app_name):
-    """
-    Opens an application by name.
-    Supported: chrome, vs code, notepad, camera.
-    """
+Home automation integration
 
-backend/ai_engine/engine.py
-def ask_ai(query):
-    """
-    Handles both OpenAI GPT and Ollama.
-    Returns LLM response as text.
-    """
-
-backend/voice/stt.py
-def listen_to_user():
-    """
-    Converts microphone audio into text using SpeechRecognition.
-    """
-
-🗄️ Database Schema
-TABLE history (
-    id INTEGER PRIMARY KEY,
-    user_input TEXT,
-    ai_response TEXT,
-    timestamp DATETIME
-);
-
-TABLE users (
-    id INTEGER PRIMARY KEY,
-    name TEXT,
-    face_encoding BLOB
-);
-
-🧩 Troubleshooting Guide
-Issue	                        Reason	                                    Fix
-Microphone not working	     STT error	                           Check input device
-Dlib error                	Missing C++ build tools             	Install vs_buildtools.exe
-Model not responding       	Wrong OpenAI key               	      Add a valid API key
-“No module found”	      Virtual environment not activated	     Run envJarvis\Scripts\activate
-
-
-🚀 Roadmap
- Add real-time animated UI
- Add multi-user authentication
- Full mobile app
- Add offline vision-language model
- Smart home dashboard
+Browser-level automation
 
 👨‍💻 Author
+
 Harshal Sonkusare
-B.Tech Artificial Intelligence & Data Science
+B.Tech Final Year — Artificial Intelligence & Data Science
 Email: harshalsonkisare@gmail.com
+
 GitHub: https://github.com/harshalcoder-ai
-
-⭐ Support
-
-If this project helps you, please ⭐ the repo!
-
